@@ -23,7 +23,7 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
     public SimpliDelegator(P presenter, V view) {
         this.presenter = presenter;
         this.view = view;
-        viewWrapper = new ViewWrapper<>(view);
+        viewWrapper = new ViewWrapper<V>(view);
     }
 
     public void onConfigurationChangedAfterSuper(Configuration newConfig) {
@@ -45,7 +45,7 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
     }
 
     public void onStartAfterSuper() {
-        presenter.bindView((V) ViewWrapper.prepareViewDelegator(viewWrapper));
+        presenter.bindView((V) viewWrapper.prepareViewDelegator());
     }
 
     public void onStopBeforeSuper() {

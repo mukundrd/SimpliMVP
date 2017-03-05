@@ -2,7 +2,10 @@ package com.trayis.simplimvp.view;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
+import java.security.acl.NotOwnerException;
 import java.util.HashMap;
 
 /**
@@ -30,9 +33,16 @@ public class ViewWrapper<V extends SimpliView> implements InvocationHandler {
         this.mView = view;
     }
 
-    public <V extends SimpliView> V prepareViewDelegator(ViewWrapper wrapper) {
-        Class<? extends SimpliView> viewClass = wrapper.mView.getClass();
-        return (V) Proxy.newProxyInstance(viewClass.getClassLoader(), new Class<?>[]{viewClass}, wrapper);
+    public V prepareViewDelegator() {
+        Type[] types = ((ParameterizedType) mView.getClass().getGenericSuperclass()).getActualTypeArguments();
+        Class<?> viewClass = null;
+        for (Type type : types) {
+            if (SimpliView.class.isAssignableFrom((Class<?>) type)) {
+                viewClass = (Class<?>) type;
+                break;
+            }
+        }
+        return (V) Proxy.newProxyInstance(viewClass.getClassLoader(), new Class<?>[]{viewClass}, this);
     }
 
     @Override

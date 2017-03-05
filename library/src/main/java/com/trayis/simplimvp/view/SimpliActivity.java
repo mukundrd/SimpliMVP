@@ -19,7 +19,7 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
 
     private static String TAG;
 
-    private final SimpliDelegator mDelegate;
+    private final SimpliDelegator<P, V> mDelegate;
 
     protected P mPresenter;
 
