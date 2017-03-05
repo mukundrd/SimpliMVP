@@ -18,8 +18,11 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
 
     private final ViewWrapper<V> viewWrapper;
 
+    private final V view;
+
     public SimpliDelegator(P presenter, V view) {
         this.presenter = presenter;
+        this.view = view;
         viewWrapper = new ViewWrapper<>(view);
     }
 
@@ -28,6 +31,7 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
     }
 
     public void onCreateAfterSuper(Bundle savedInstanceState) {
+        view.initializePresenter();
         presenter.onCreate();
     }
 

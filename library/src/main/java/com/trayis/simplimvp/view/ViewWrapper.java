@@ -30,7 +30,7 @@ public class ViewWrapper<V extends SimpliView> implements InvocationHandler {
         this.mView = view;
     }
 
-    public static <V extends SimpliView> V prepareViewDelegator(ViewWrapper wrapper) {
+    public <V extends SimpliView> V prepareViewDelegator(ViewWrapper wrapper) {
         Class<? extends SimpliView> viewClass = wrapper.mView.getClass();
         return (V) Proxy.newProxyInstance(viewClass.getClassLoader(), new Class<?>[]{viewClass}, wrapper);
     }

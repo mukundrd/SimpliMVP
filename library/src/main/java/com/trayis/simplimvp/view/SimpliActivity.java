@@ -21,7 +21,7 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
 
     private final SimpliDelegator mDelegate;
 
-    private P mPresenter;
+    protected P mPresenter;
 
     public SimpliActivity() {
         TAG = getClass().getSimpleName();

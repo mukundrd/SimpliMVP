@@ -4,40 +4,49 @@ import android.os.Bundle;
 
 import com.trayis.simplimvp.view.SimpliView;
 
+import static com.trayis.simplimvp.presenter.SimpliPresenter.State.DESTROYED;
+import static com.trayis.simplimvp.presenter.SimpliPresenter.State.INITIALIZED;
+import static com.trayis.simplimvp.presenter.SimpliPresenter.State.VIEW_ATTACHED;
+import static com.trayis.simplimvp.presenter.SimpliPresenter.State.VIEW_DETACHED;
+
 /**
  * Created by Mukund Desai on 2/17/17.
  */
-public class SimpliPresenter<V extends SimpliView> {
+public abstract class SimpliPresenter<V extends SimpliView> {
 
     /**
      * The LifecycleState of a {@link SimpliPresenter}
      */
-    public enum State {
+    public class State {
+        private State() {
+        }
+
+        ;
         /**
          * Initial state of the presenter before {@link #onCreate()} got called
          */
-        INITIALIZED,
+        public static final int INITIALIZED = 0;
         /**
          * presenter is running fine but has no attached view. Either it gets a view  and
          * transitions to {@link #VIEW_ATTACHED} or the presenter gets destroyed ->
          * {@link
          * #DESTROYED}
          */
-        VIEW_DETACHED,
+        public static final int VIEW_DETACHED = 1;
         /**
          * the view is attached. In any case, the next step will be {@link
          * #VIEW_DETACHED}
          */
-        VIEW_ATTACHED,
+        public static final int VIEW_ATTACHED = 2;
         /**
          * termination state. It will never change again.
          */
-        DESTROYED
+        public static final int DESTROYED = -1;
     }
 
     private V view;
 
-    private State mState = State.INITIALIZED;
+    private volatile int mState = INITIALIZED;
 
     public void invalidateView() {
         view = null;
@@ -45,33 +54,33 @@ public class SimpliPresenter<V extends SimpliView> {
 
     public void bindView(V view) {
         this.view = view;
-        moveToState(State.VIEW_ATTACHED);
+        moveToState(VIEW_ATTACHED);
     }
 
     public void onCreate() {
-        moveToState(State.VIEW_DETACHED);
+        moveToState(VIEW_DETACHED);
     }
 
     public void onSaveinstanceState(Bundle outState) {
     }
 
     public void onStopBefore() {
-        moveToState(State.VIEW_DETACHED);
+        moveToState(VIEW_DETACHED);
     }
 
     public void onStopAfter() {
     }
 
     public void onDestroy() {
-        moveToState(State.DESTROYED);
+        moveToState(DESTROYED);
     }
 
-    private void moveToState(State newState) {
-        final State oldState = mState;
+    private void moveToState(int newState) {
+        final int oldState = mState;
         if (newState != oldState) {
             switch (oldState) {
                 case INITIALIZED:
-                    if (newState == State.VIEW_DETACHED) {
+                    if (newState == VIEW_DETACHED) {
                         // move allowed
                         break;
                     } else {
@@ -79,10 +88,10 @@ public class SimpliPresenter<V extends SimpliView> {
                                 + ", the next state after INITIALIZED has to be VIEW_DETACHED");
                     }
                 case VIEW_DETACHED:
-                    if (newState == State.VIEW_ATTACHED) {
+                    if (newState == VIEW_ATTACHED) {
                         // move allowed
                         break;
-                    } else if (newState == State.DESTROYED) {
+                    } else if (newState == DESTROYED) {
                         // move allowed
                         break;
                     } else {
@@ -91,7 +100,7 @@ public class SimpliPresenter<V extends SimpliView> {
                     }
                 case VIEW_ATTACHED:
                     // directly moving to DESTROYED is not possible, first detach the view
-                    if (newState == State.VIEW_DETACHED) {
+                    if (newState == VIEW_DETACHED) {
                         // move allowed
                         break;
                     } else {
@@ -106,4 +115,5 @@ public class SimpliPresenter<V extends SimpliView> {
             mState = newState;
         }
     }
+
 }
