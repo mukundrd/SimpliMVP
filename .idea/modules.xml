@@ -3,11 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SimpliMVP.iml" filepath="$PROJECT_DIR$/SimpliMVP.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SimpliMVP.iml" filepath="$PROJECT_DIR$/SimpliMVP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/simplifymvp/simplifymvp.iml" filepath="$PROJECT_DIR$/simplifymvp/simplifymvp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simpliMVP/simpliMVP.iml" filepath="$PROJECT_DIR$/simpliMVP/simpliMVP.iml" />
     </modules>
   </component>
 </project>

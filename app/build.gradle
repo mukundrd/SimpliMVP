@@ -20,6 +20,10 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -31,5 +35,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':library')
+    compile project(':simpliMVP')
 }
