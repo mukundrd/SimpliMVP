@@ -25,10 +25,8 @@ stages:
   - build
   - test
 
-build:
+job1:
   stage: build
-  only:
-    - develop
   script:
     - ./gradlew assembleDebug
   artifacts:
