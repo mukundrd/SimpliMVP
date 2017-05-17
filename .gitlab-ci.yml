@@ -25,15 +25,18 @@ stages:
   - build
   - test
 
-job1:
+BuildBinary:
   stage: build
+  only:
+    - tags
+    - develop
   script:
     - ./gradlew assembleDebug
   artifacts:
     paths:
     - app/build/outputs/
 
-unitTests:
+UnitTests:
   stage: test
   script:
     - ./gradlew test
