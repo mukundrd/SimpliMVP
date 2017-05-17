@@ -28,7 +28,6 @@ stages:
 BuildBinary:
   stage: build
   only:
-    - tags
     - develop
   script:
     - ./gradlew assembleDebug
