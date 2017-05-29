@@ -70,7 +70,7 @@ public abstract class SimpliPresenter<V extends SimpliView> {
     public void onSaveinstanceState(Bundle outState) {
     }
 
-    public void onStartAfter() {
+    public void onStart() {
         moveToState(VIEW_ATTACHED);
     }
 
