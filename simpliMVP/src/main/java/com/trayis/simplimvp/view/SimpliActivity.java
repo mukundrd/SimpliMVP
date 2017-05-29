@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
 
 public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends SimpliView> extends AppCompatActivity implements SimpliView {
 
-    private static String TAG;
+    protected static String TAG;
 
     private final SimpliDelegator<P, V> mDelegate;
 

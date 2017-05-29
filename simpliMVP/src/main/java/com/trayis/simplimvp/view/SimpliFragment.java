@@ -35,7 +35,7 @@ import java.lang.reflect.Type;
 
 public abstract class SimpliFragment<P extends SimpliPresenter<V>, V extends SimpliView> extends Fragment implements SimpliView {
 
-    private static String TAG;
+    protected static String TAG;
 
     private final SimpliDelegator mDelegate;
 
