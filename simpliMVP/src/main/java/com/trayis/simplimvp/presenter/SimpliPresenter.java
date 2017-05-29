@@ -14,6 +14,12 @@ import static com.trayis.simplimvp.presenter.SimpliPresenter.State.VIEW_DETACHED
  */
 public abstract class SimpliPresenter<V extends SimpliView> {
 
+    protected static String TAG;
+
+    public SimpliPresenter() {
+        TAG = getClass().getSimpleName();
+    }
+
     /**
      * The LifecycleState of a {@link SimpliPresenter}
      */
@@ -55,7 +61,6 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     public void bindView(V view) {
         this.mView = view;
-        moveToState(VIEW_ATTACHED);
     }
 
     public void onCreate() {
@@ -63,6 +68,10 @@ public abstract class SimpliPresenter<V extends SimpliView> {
     }
 
     public void onSaveinstanceState(Bundle outState) {
+    }
+
+    public void onStart() {
+        moveToState(VIEW_ATTACHED);
     }
 
     public void onStopBefore() {
