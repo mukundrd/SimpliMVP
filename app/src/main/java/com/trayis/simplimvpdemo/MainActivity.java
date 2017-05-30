@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.trayis.simplimvp.view.SimpliActivity;
 import com.trayis.simplimvpdemo.presenter.MainPresenter;
 
-public class MainActivity extends SimpliActivity {
+public class MainActivity extends SimpliActivity<MainPresenter, MainView> implements MainView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,4 +16,5 @@ public class MainActivity extends SimpliActivity {
     @Override
     public void initializePresenter() {
     }
+
 }
