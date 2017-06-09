@@ -2,6 +2,7 @@ package com.trayis.simplimvp.view;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.trayis.simplimvp.presenter.SimpliPresenter;
@@ -58,6 +59,11 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         mDelegate.onCreateAfterSuper(savedInstanceState);
     }
 
