@@ -18,7 +18,9 @@ package com.trayis.simplimvp.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.trayis.simplimvp.presenter.SimpliPresenter;
 import com.trayis.simplimvp.utils.Logging;
@@ -60,10 +62,18 @@ public abstract class SimpliFragment<P extends SimpliPresenter<V>, V extends Sim
         return mPresenter;
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        mDelegate.onCreateAfterSuper(savedInstanceState);
+        return view;
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDelegate.onCreateAfterSuper(savedInstanceState);
+        mDelegate.onPostCreateAfterSuper();
     }
 
     @Override

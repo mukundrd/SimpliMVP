@@ -67,6 +67,10 @@ public abstract class SimpliPresenter<V extends SimpliView> {
         moveToState(VIEW_DETACHED);
     }
 
+    public void onCreateComplete() {
+
+    }
+
     public void onSaveinstanceState(Bundle outState) {
     }
 

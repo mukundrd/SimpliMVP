@@ -57,4 +57,7 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
         presenter.onStopAfter();
     }
 
+    public void onPostCreateAfterSuper() {
+        presenter.onCreateComplete();
+    }
 }
