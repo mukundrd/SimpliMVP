@@ -57,9 +57,15 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
     }
 
     @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDelegate.onCreateAfterSuper(savedInstanceState);
+    }
+
+    @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDelegate.onCreateAfterSuper(savedInstanceState);
+        mDelegate.onPostCreateAfterSuper();
     }
 
     @Override
