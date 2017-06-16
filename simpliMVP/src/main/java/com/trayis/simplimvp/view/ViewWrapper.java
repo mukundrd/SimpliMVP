@@ -7,10 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
-import java.security.acl.NotOwnerException;
 import java.util.HashMap;
-
-import static com.trayis.simplimvp.view.SimpliFragment.TAG;
 
 /**
  * Created by Mukund Desai on 2/17/17.
@@ -51,7 +48,7 @@ public class ViewWrapper<V extends SimpliView> implements InvocationHandler {
                 }
             }
             return (V) Proxy.newProxyInstance(viewClass.getClassLoader(), new Class<?>[]{viewClass}, this);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             Logging.e(TAG, e.getMessage(), e);
         }
 
