@@ -70,9 +70,25 @@ public class Logging {
      * Use the default logcat logger for Android:
      * <code>LBALogging.initLogger();</code>
      * <p>
+     *
+     * @param logger
      */
     public static void setLogger(@Nullable final Logger logger) {
         Logging.logger = logger;
+    }
+
+    /**
+     * Returns current logger being used.
+     * <p>Returns null if nothing is set</p>
+     * <p>
+     * Use the default logcat logger for Android:
+     * <code>LBALogging.initLogger();</code>
+     * </p>
+     *
+     * @return
+     */
+    public static Logger getLogger() {
+        return logger;
     }
 
     public static void d(final String tag, final String msg) {
