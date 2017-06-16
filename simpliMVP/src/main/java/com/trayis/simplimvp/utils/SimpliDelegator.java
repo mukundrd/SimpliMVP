@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.trayis.simplimvp.presenter.SimpliPresenter;
+import com.trayis.simplimvp.view.SimpliFragment;
 import com.trayis.simplimvp.view.SimpliView;
 import com.trayis.simplimvp.view.ViewWrapper;
 
@@ -13,6 +14,8 @@ import com.trayis.simplimvp.view.ViewWrapper;
  * Created by Mukund Desai on 2/17/17.
  */
 public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView> {
+
+    private static final String TAG = "SimpliDelegator";
 
     private final P presenter;
 
@@ -58,6 +61,13 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
     }
 
     public void onPostCreateAfterSuper() {
+        if (view instanceof SimpliFragment) {
+            try {
+                presenter.onCreate();
+            } catch (IllegalStateException e) {
+                Logging.e(TAG, e.getMessage(), e);
+            }
+        }
         presenter.onCreateComplete();
     }
 }
