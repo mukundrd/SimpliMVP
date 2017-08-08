@@ -35,6 +35,7 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
     }
 
     public void onCreateAfterSuper(Bundle savedInstanceState) {
+        view.initializePresenter();
         presenter.onCreate();
     }
 
@@ -48,7 +49,6 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
     }
 
     public void onStartAfterSuper() {
-        view.initializePresenter();
         presenter.onStart();
     }
 
