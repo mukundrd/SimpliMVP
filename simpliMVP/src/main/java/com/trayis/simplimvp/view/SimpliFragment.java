@@ -39,7 +39,7 @@ public abstract class SimpliFragment<P extends SimpliPresenter<V>, V extends Sim
 
     private final SimpliDelegator mDelegate;
 
-    private P mPresenter;
+    protected P mPresenter;
 
     public SimpliFragment() {
         TAG = getClass().getSimpleName();
