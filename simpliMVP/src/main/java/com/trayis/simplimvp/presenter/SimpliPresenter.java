@@ -9,6 +9,8 @@ import static com.trayis.simplimvp.presenter.SimpliPresenter.State.INITIALIZED;
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.VIEW_ATTACHED;
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.VIEW_DETACHED;
 
+import rx.subscriptions.CompositeSubscription;
+
 /**
  * Created by Mukund Desai on 2/17/17.
  */
@@ -17,6 +19,8 @@ public abstract class SimpliPresenter<V extends SimpliView> {
     protected static String TAG;
 
     private boolean mInitialized;
+
+    protected CompositeSubscription mSubscription;
 
     public SimpliPresenter() {
         TAG = getClass().getSimpleName();
@@ -27,6 +31,7 @@ public abstract class SimpliPresenter<V extends SimpliView> {
     }
 
     public void markInitialized() {
+        mSubscription = new CompositeSubscription();
         mInitialized = true;
     }
 
@@ -97,6 +102,7 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     public void onDestroy() {
         moveToState(DESTROYED);
+        mSubscription.clear();
     }
 
     private void moveToState(int newState) {

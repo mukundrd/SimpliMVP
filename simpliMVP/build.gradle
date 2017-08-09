@@ -32,12 +32,15 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$androidLib"
 
+    // ReactiveX
+    implementation "io.reactivex:rxjava:1.2.1"
+
     testImplementation 'junit:junit:4.12'
 
 }
 
 group = 'com.trayis'    // Maven Group ID for the artifact
-version = '0.1.0'       // This is the library version used when deploying the artifact
+version = '0.1.1'       // This is the library version used when deploying the artifact
 
 install {
     repositories.mavenInstaller {
