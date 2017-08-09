@@ -32,6 +32,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$androidLib"
 
+    // ReactiveX
+    implementation "io.reactivex:rxjava:1.2.1"
+
     testImplementation 'junit:junit:4.12'
 
 }
