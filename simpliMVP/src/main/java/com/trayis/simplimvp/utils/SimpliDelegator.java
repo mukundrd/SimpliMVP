@@ -2,8 +2,6 @@ package com.trayis.simplimvp.utils;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import com.trayis.simplimvp.presenter.SimpliPresenter;
 import com.trayis.simplimvp.view.SimpliFragment;
@@ -35,7 +33,6 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
     }
 
     public void onCreateAfterSuper(Bundle savedInstanceState) {
-        view.initializePresenter();
         presenter.onCreate();
     }
 
@@ -49,7 +46,11 @@ public class SimpliDelegator<P extends SimpliPresenter<V>, V extends SimpliView>
     }
 
     public void onStartAfterSuper() {
-        presenter.onStart();
+        if (!presenter.isInitialized()) {
+            view.initializePresenter();
+            presenter.markInitialized();
+            presenter.onStart();
+        }
     }
 
     public void onStopBeforeSuper() {

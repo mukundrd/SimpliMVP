@@ -16,8 +16,18 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     protected static String TAG;
 
+    private boolean mInitialized;
+
     public SimpliPresenter() {
         TAG = getClass().getSimpleName();
+    }
+
+    public boolean isInitialized() {
+        return mInitialized;
+    }
+
+    public void markInitialized() {
+        mInitialized = true;
     }
 
     /**
