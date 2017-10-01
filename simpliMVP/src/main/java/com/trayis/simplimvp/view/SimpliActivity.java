@@ -61,11 +61,10 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
             ParameterizedType paramType = (ParameterizedType) type;
             Type[] arguments = paramType.getActualTypeArguments();
             for (Type t : arguments) {
-                if (SimpliPresenter.class.isAssignableFrom((Class<?>)t)) {
+                if (SimpliPresenter.class.isAssignableFrom((Class<?>) t)) {
                     Class<P> pClass = (Class<P>) t;
                     try {
                         mPresenter = pClass.newInstance();
-                        mPresenter.setContext(getApplicationContext());
                     } catch (InstantiationException e) {
                         Logging.e(TAG, e.getMessage(), e);
                     } catch (IllegalAccessException e) {
@@ -81,6 +80,7 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.setContext(getApplicationContext());
         mDelegate.onCreateAfterSuper(savedInstanceState);
     }
 
