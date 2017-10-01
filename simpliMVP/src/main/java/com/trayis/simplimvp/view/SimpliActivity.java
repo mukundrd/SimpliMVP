@@ -65,6 +65,7 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
                     Class<P> pClass = (Class<P>) t;
                     try {
                         mPresenter = pClass.newInstance();
+                        mPresenter.setContext(getApplicationContext());
                     } catch (InstantiationException e) {
                         Logging.e(TAG, e.getMessage(), e);
                     } catch (IllegalAccessException e) {
