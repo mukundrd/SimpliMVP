@@ -51,13 +51,19 @@ public abstract class SimpliFragment<P extends SimpliPresenter<V>, V extends Sim
         if (mPresenter == null) {
             Type type = getClass().getGenericSuperclass();
             ParameterizedType paramType = (ParameterizedType) type;
-            Class<P> pClass = (Class<P>) paramType.getActualTypeArguments()[0];
-            try {
-                mPresenter = pClass.newInstance();
-            } catch (java.lang.InstantiationException e) {
-                Logging.e(TAG, e.getMessage(), e);
-            } catch (IllegalAccessException e) {
-                Logging.e(TAG, e.getMessage(), e);
+            Type[] arguments = paramType.getActualTypeArguments();
+            for (Type t : arguments) {
+                if (SimpliPresenter.class.isAssignableFrom((Class<?>)t)) {
+                    Class<P> pClass = (Class<P>) t;
+                    try {
+                        mPresenter = pClass.newInstance();
+                    } catch (java.lang.InstantiationException e) {
+                        Logging.e(TAG, e.getMessage(), e);
+                    } catch (IllegalAccessException e) {
+                        Logging.e(TAG, e.getMessage(), e);
+                    }
+                    break;
+                }
             }
         }
         return mPresenter;
