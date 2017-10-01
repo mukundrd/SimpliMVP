@@ -15,6 +15,7 @@
 
 package com.trayis.simplimvp.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -60,6 +61,12 @@ public abstract class SimpliFragment<P extends SimpliPresenter<V>, V extends Sim
             }
         }
         return mPresenter;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mPresenter.setContext(context.getApplicationContext());
     }
 
     @Nullable
