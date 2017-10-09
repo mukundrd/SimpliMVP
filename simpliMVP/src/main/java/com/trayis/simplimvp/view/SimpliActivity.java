@@ -31,7 +31,7 @@ import java.lang.reflect.Type;
  * Created by Mukund Desai on 2/17/17.
  */
 
-public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends SimpliView> extends AppCompatActivity implements SimpliView {
+public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends SimpliView> extends AppCompatActivity implements SimpliBase<P, V>, SimpliView {
 
     protected String TAG;
 
@@ -61,7 +61,7 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
             ParameterizedType paramType = (ParameterizedType) type;
             Type[] arguments = paramType.getActualTypeArguments();
             for (Type t : arguments) {
-                if (SimpliPresenter.class.isAssignableFrom((Class<?>)t)) {
+                if (SimpliPresenter.class.isAssignableFrom((Class<?>) t)) {
                     Class<P> pClass = (Class<P>) t;
                     try {
                         mPresenter = pClass.newInstance();
