@@ -36,9 +36,15 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$androidLib"
 
-    implementation "com.trayis:simpliMVP:1.0.0"
-    implementation "com.trayis:simpliMVPAnnotationProcessor:0.1.4"
-    annotationProcessor "com.trayis:simpliMVPAnnotationProcessor:0.1.4"
+    // ReactiveX
+    implementation "io.reactivex:rxjava:1.2.1"
+
+    api "com.trayis:simpliMVP:1.0.0"
+    //implementation "com.trayis:simpliMVPAnnotationProcessor:0.1.4"
+    //annotationProcessor "com.trayis:simpliMVPAnnotationProcessor:0.1.4"
+
+    implementation project(":simpliMVPAnnotationProcessor")
+    annotationProcessor project(":simpliMVPAnnotationProcessor")
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
 
