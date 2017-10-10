@@ -15,16 +15,17 @@
 
 package com.trayis.simplimvp.presenter;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.trayis.simplimvp.view.SimpliView;
+
+import rx.subscriptions.CompositeSubscription;
 
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.DESTROYED;
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.INITIALIZED;
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.VIEW_ATTACHED;
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.VIEW_DETACHED;
-
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by Mukund Desai on 2/17/17.
@@ -37,6 +38,8 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     protected CompositeSubscription mSubscription;
 
+    protected Context mContext;
+
     public SimpliPresenter() {
         TAG = getClass().getSimpleName();
     }
@@ -48,6 +51,10 @@ public abstract class SimpliPresenter<V extends SimpliView> {
     public void markInitialized() {
         mSubscription = new CompositeSubscription();
         mInitialized = true;
+    }
+
+    public void setContext(Context context) {
+        this.mContext = context;
     }
 
     /**
