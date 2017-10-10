@@ -1,6 +1,6 @@
 package com.trayis.simplimvpannotation;
 
-import com.trayis.simpliannotations.SimpiViewComponent;
+import com.trayis.simpliannotations.SimpliViewComponent;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -18,7 +18,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.JavaFileObject;
 
-@SupportedAnnotationTypes("com.trayis.simpliannotations.SimpiViewComponent")
+@SupportedAnnotationTypes("com.trayis.simpliannotations.SimpliViewComponent")
 public class SimpliAnnotationProcessor extends AbstractProcessor {
 
     private String packageName = "com.trayis.simplimvpannotation.generated";
@@ -53,7 +53,7 @@ public class SimpliAnnotationProcessor extends AbstractProcessor {
         builder.append("\n\n\t@Override\n\tpublic P getPresenter(V view) throws InvalidPropertiesFormatException {");
 
         // for each javax.lang.model.element.Element annotated with the CustomAnnotation
-        for (Element element : roundEnv.getElementsAnnotatedWith(SimpiViewComponent.class)) {
+        for (Element element : roundEnv.getElementsAnnotatedWith(SimpliViewComponent.class)) {
 
             if (!(element instanceof TypeElement)) {
                 System.err.println("This annotation is for Classes only");

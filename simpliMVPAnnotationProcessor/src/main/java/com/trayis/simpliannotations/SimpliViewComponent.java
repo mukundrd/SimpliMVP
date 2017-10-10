@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * Created by mudesai on 10/9/17.
  */
 
-@Target(ElementType.TYPE) // on class level
-@Retention(RetentionPolicy.SOURCE) // not needed at runtime
-public @interface SimpiViewComponent {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.SOURCE)
+public @interface SimpliViewComponent {
 }
