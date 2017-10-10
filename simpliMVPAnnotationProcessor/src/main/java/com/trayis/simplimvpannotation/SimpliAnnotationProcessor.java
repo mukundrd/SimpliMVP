@@ -4,6 +4,7 @@ import com.trayis.simpliannotations.SimpliViewComponent;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -33,26 +34,27 @@ public class SimpliAnnotationProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder packageBuilder = new StringBuilder();
+        StringBuilder classBuilder = new StringBuilder();
 
-        builder.append("package " + packageName + ";");
+        packageBuilder.append("package " + packageName + ";");
 
-        builder.append("\n\nimport com.trayis.simplimvp.utils.SimpliProvider;");
-        builder.append("\nimport com.trayis.simplimvp.presenter.SimpliPresenter;");
-        builder.append("\nimport com.trayis.simplimvp.view.SimpliView;");
-        builder.append("\n\nimport java.util.InvalidPropertiesFormatException;");
+        packageBuilder.append("\n\nimport com.trayis.simplimvp.utils.SimpliProvider;");
+        packageBuilder.append("\nimport com.trayis.simplimvp.presenter.SimpliPresenter;");
+        packageBuilder.append("\nimport com.trayis.simplimvp.view.SimpliView;");
+        packageBuilder.append("\n\nimport java.util.InvalidPropertiesFormatException;\n");
 
-        builder.append("\n\npublic class SimpliMVPProvider<P extends SimpliPresenter, V extends SimpliView> implements SimpliProvider<P, V> {");
+        classBuilder.append("\n\n/**\n * This is a generated class\n * Generated on " + new Date() + "\n * Do not modify.\n */");
+        classBuilder.append("\npublic class SimpliMVPProvider<P extends SimpliPresenter, V extends SimpliView> implements SimpliProvider<P, V> {");
 
-        builder.append("\n\n\tprivate static final SimpliMVPProvider instance = new SimpliMVPProvider();");
+        classBuilder.append("\n\n\tprivate static final SimpliMVPProvider instance = new SimpliMVPProvider();");
 
-        builder.append("\n\n\tpublic static SimpliMVPProvider getInstance() {\n\t\treturn instance;\n\t}");
+        classBuilder.append("\n\n\tpublic static SimpliMVPProvider getInstance() {\n\t\treturn instance;\n\t}");
 
-        builder.append("\n\n\tprivate SimpliMVPProvider() {}");
+        classBuilder.append("\n\n\tprivate SimpliMVPProvider() {}");
 
-        builder.append("\n\n\t@Override\n\tpublic P getPresenter(V view) throws InvalidPropertiesFormatException {");
+        classBuilder.append("\n\n\t@Override\n\tpublic P getPresenter(V view) throws InvalidPropertiesFormatException {");
 
-        // for each javax.lang.model.element.Element annotated with the CustomAnnotation
         for (Element element : roundEnv.getElementsAnnotatedWith(SimpliViewComponent.class)) {
 
             if (!(element instanceof TypeElement)) {
@@ -63,25 +65,27 @@ public class SimpliAnnotationProcessor extends AbstractProcessor {
             TypeElement typeElement = (TypeElement) element;
             DeclaredType declaredType = (DeclaredType) typeElement.getSuperclass();
             List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+
             String presenterName = String.valueOf(typeArguments.get(0));
             String viewName = String.valueOf(typeArguments.get(1));
-            builder.append("\n\t\tif (view instanceof " + viewName + ") {");
-            builder.append("\n\t\t\treturn (P)new " + presenterName + "();\n\t\t}");
+
+            packageBuilder.append("\nimport " + presenterName + ";");
+            packageBuilder.append("\nimport " + viewName + ";");
+
+            classBuilder.append("\n\n\t\tif (view instanceof " + viewName.substring(viewName.lastIndexOf(".") + 1) + ") {");
+            classBuilder.append("\n\t\t\treturn (P)new " + presenterName.substring(presenterName.lastIndexOf(".") + 1) + "();\n\t\t}");
         }
 
-        builder.append("\n\t\tthrow new java.util.InvalidPropertiesFormatException(\"view of type\" + view.getClass() + \" is not supported.\");");
-        builder.append("\n\t}\n\n}\n"); // close class
+        classBuilder.append("\n\n\t\tthrow new java.util.InvalidPropertiesFormatException(\"view of type\" + view.getClass() + \" is not supported.\");\n\n\t}\n\n}\n"); // close class
 
-        try { // write the file
+        try {
             JavaFileObject source = processingEnv.getFiler().createSourceFile(packageName + ".SimpliMVPProvider");
-
             Writer writer = source.openWriter();
-            writer.write(builder.toString());
+            writer.write(packageBuilder.toString());
+            writer.write(classBuilder.toString());
             writer.flush();
             writer.close();
         } catch (IOException e) {
-            // Note: calling e.printStackTrace() will print IO errors
-            // that occur from the file already existing after its first run, this is normal
         }
 
         return true;

@@ -9,4 +9,8 @@ import com.trayis.simplimvpdemo.MainView;
 
 public class MainPresenter extends SimpliPresenter<MainView> {
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 }

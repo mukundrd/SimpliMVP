@@ -124,7 +124,9 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     public void onDestroy() {
         moveToState(DESTROYED);
-        mSubscription.clear();
+        if (!mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
     }
 
     private void moveToState(int newState) {
