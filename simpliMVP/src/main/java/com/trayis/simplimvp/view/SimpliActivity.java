@@ -71,6 +71,7 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.setContext(getApplicationContext());
         mDelegate.onCreateAfterSuper(savedInstanceState);
     }
 
