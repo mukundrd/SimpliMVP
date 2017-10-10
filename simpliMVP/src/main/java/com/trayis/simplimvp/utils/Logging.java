@@ -66,12 +66,11 @@ public class Logging {
     /**
      * set a custom logger, {@code null} to disable logging
      * <p>
-     * <p>
      * Use the default logcat logger for Android:
      * <code>LBALogging.initLogger();</code>
-     * <p>
+     * </p>
      *
-     * @param logger
+     * @param logger set you custom logger. It can be file logging or console.
      */
     public static void setLogger(@Nullable final Logger logger) {
         Logging.logger = logger;
@@ -85,7 +84,7 @@ public class Logging {
      * <code>LBALogging.initLogger();</code>
      * </p>
      *
-     * @return
+     * @return Logger instance
      */
     public static Logger getLogger() {
         return logger;
