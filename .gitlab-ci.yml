@@ -22,6 +22,7 @@ before_script:
   - chmod +x ./gradlew
 
 stages:
+  - preBuild
   - build
   - test
 
