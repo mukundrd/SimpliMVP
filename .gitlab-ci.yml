@@ -30,7 +30,7 @@ BuildBinary:
   only:
     - develop
   script:
-    - ./gradlew assembleDebug
+    - ./gradlew build
   artifacts:
     paths:
     - app/build/outputs/

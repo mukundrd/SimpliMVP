@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 16
@@ -31,10 +31,18 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$androidLib"
 
+    //implementation "com.trayis:simpliMVP:1.0.0"
+    //implementation "com.trayis:simpliAnnotations:0.1.0"
+    //annotationProcessor "com.trayis:simpliMVPAnnotationProcessor:0.1.0"
+
     implementation project(':simpliMVP')
+    implementation project(':simpliAnnotations')
+    annotationProcessor project(':simpliMVPAnnotationProcessor')
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
 
     testImplementation 'junit:junit:4.12'
 }
+
+build.dependsOn preBuild
 
