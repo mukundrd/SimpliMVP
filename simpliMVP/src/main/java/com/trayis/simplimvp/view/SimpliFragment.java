@@ -36,7 +36,7 @@ import java.lang.reflect.Type;
 
 public abstract class SimpliFragment<P extends SimpliPresenter<V>, V extends SimpliView> extends Fragment implements SimpliView {
 
-    protected static String TAG;
+    protected String TAG;
 
     private final SimpliDelegator mDelegate;
 
@@ -53,7 +53,7 @@ public abstract class SimpliFragment<P extends SimpliPresenter<V>, V extends Sim
             ParameterizedType paramType = (ParameterizedType) type;
             Type[] arguments = paramType.getActualTypeArguments();
             for (Type t : arguments) {
-                if (SimpliPresenter.class.isAssignableFrom((Class<?>)t)) {
+                if (SimpliPresenter.class.isAssignableFrom((Class<?>) t)) {
                     Class<P> pClass = (Class<P>) t;
                     try {
                         mPresenter = pClass.newInstance();
