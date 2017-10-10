@@ -5,8 +5,10 @@ apply plugin: 'com.jfrog.bintray'
 dependencies {
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 group = 'com.trayis'    // Maven Group ID for the artifact
 version = '0.1.0'       // This is the library version used when deploying the artifact
