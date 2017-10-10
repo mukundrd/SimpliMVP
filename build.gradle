@@ -11,6 +11,7 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url 'https://maven.google.com' }
+        maven { url 'http://dl.bintray.com/my-bintray-id/MyStuff' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-beta7'
@@ -22,7 +23,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
         maven { url 'https://maven.google.com' }
+        maven { url 'http://dl.bintray.com/trayis/android_lib' }
     }
 }
 

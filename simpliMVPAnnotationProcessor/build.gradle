@@ -2,20 +2,14 @@ apply plugin: 'java'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-compileJava {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-
 dependencies {
-    implementation project(':simpliAnnotations')
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 
 group = 'com.trayis'    // Maven Group ID for the artifact
-version = '0.1.0'       // This is the library version used when deploying the artifact
+version = '0.1.4'       // This is the library version used when deploying the artifact
 
 install {
     repositories.mavenInstaller {

@@ -1,1 +1,1 @@
-include ':app', ':simpliMVP', ':simpliMVPAnnotationProcessor', ':simpliAnnotations'
+include ':app', ':simpliMVP', ':simpliMVPAnnotationProcessor'
