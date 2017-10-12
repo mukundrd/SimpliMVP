@@ -1,23 +1,41 @@
+/*
+ * Copyright (C) 2017 Mukund Desai (mukundrd)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.trayis.simplimvp.view;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.trayis.simplimvp.presenter.SimpliPresenter;
 import com.trayis.simplimvp.utils.Logging;
 import com.trayis.simplimvp.utils.SimpliDelegator;
+import com.trayis.simplimvp.utils.SimpliProviderUtil;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.InvalidPropertiesFormatException;
 
 /**
  * Created by Mukund Desai on 2/17/17.
  */
 
-public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends SimpliView> extends AppCompatActivity implements SimpliView {
+public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends SimpliView> extends AppCompatActivity implements SimpliBase<P, V>, SimpliView {
 
-    private static String TAG;
+    protected String TAG;
 
     private final SimpliDelegator<P, V> mDelegate;
 
@@ -41,14 +59,9 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
 
     public P getPresenter() {
         if (mPresenter == null) {
-            Type type = getClass().getGenericSuperclass();
-            ParameterizedType paramType = (ParameterizedType) type;
-            Class<P> pClass = (Class<P>) paramType.getActualTypeArguments()[0];
             try {
-                mPresenter = pClass.newInstance();
-            } catch (InstantiationException e) {
-                Logging.e(TAG, e.getMessage(), e);
-            } catch (IllegalAccessException e) {
+                mPresenter = (P) SimpliProviderUtil.getInstance().getProvider().getPresenter(this);
+            } catch (InvalidPropertiesFormatException e) {
                 Logging.e(TAG, e.getMessage(), e);
             }
         }
@@ -58,7 +71,14 @@ public abstract class SimpliActivity<P extends SimpliPresenter<V>, V extends Sim
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.setContext(getApplicationContext());
         mDelegate.onCreateAfterSuper(savedInstanceState);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDelegate.onPostCreateAfterSuper();
     }
 
     @Override

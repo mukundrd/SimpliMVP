@@ -2,9 +2,11 @@ package com.trayis.simplimvpdemo;
 
 import android.os.Bundle;
 
+import com.trayis.simpliannotations.SimpliViewComponent;
 import com.trayis.simplimvp.view.SimpliActivity;
 import com.trayis.simplimvpdemo.presenter.MainPresenter;
 
+@SimpliViewComponent
 public class MainActivity extends SimpliActivity<MainPresenter, MainView> implements MainView {
 
     @Override
@@ -16,4 +18,5 @@ public class MainActivity extends SimpliActivity<MainPresenter, MainView> implem
     @Override
     public void initializePresenter() {
     }
+
 }

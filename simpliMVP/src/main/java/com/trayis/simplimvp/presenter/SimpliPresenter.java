@@ -1,8 +1,26 @@
+/*
+ * Copyright (C) 2017 Mukund Desai (mukundrd)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.trayis.simplimvp.presenter;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.trayis.simplimvp.view.SimpliView;
+
+import rx.subscriptions.CompositeSubscription;
 
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.DESTROYED;
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.INITIALIZED;
@@ -13,6 +31,31 @@ import static com.trayis.simplimvp.presenter.SimpliPresenter.State.VIEW_DETACHED
  * Created by Mukund Desai on 2/17/17.
  */
 public abstract class SimpliPresenter<V extends SimpliView> {
+
+    protected String TAG;
+
+    private boolean mInitialized;
+
+    protected CompositeSubscription mSubscription;
+
+    protected Context mContext;
+
+    public SimpliPresenter() {
+        TAG = getClass().getSimpleName();
+    }
+
+    public boolean isInitialized() {
+        return mInitialized;
+    }
+
+    public void markInitialized() {
+        mSubscription = new CompositeSubscription();
+        mInitialized = true;
+    }
+
+    public void setContext(Context context) {
+        this.mContext = context;
+    }
 
     /**
      * The LifecycleState of a {@link SimpliPresenter}
@@ -55,14 +98,21 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     public void bindView(V view) {
         this.mView = view;
-        moveToState(VIEW_ATTACHED);
     }
 
     public void onCreate() {
         moveToState(VIEW_DETACHED);
     }
 
+    public void onCreateComplete() {
+
+    }
+
     public void onSaveinstanceState(Bundle outState) {
+    }
+
+    public void onStart() {
+        moveToState(VIEW_ATTACHED);
     }
 
     public void onStopBefore() {
@@ -74,6 +124,9 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     public void onDestroy() {
         moveToState(DESTROYED);
+        if (!mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
     }
 
     private void moveToState(int newState) {

@@ -1,9 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext {
+        androidLib = '26.0.0-beta2'
+
+        siteUrl = 'https://gitlab.com/Trayis/SimpliMVP'      // Homepage URL of the library
+        gitUrl = 'https://gitlab.com/Trayis/SimpliMVP.git'   // Git repository URL
+    }
     repositories {
         jcenter()
         mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'http://dl.bintray.com/my-bintray-id/MyStuff' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-beta7'
@@ -15,6 +23,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'http://dl.bintray.com/trayis/android_lib' }
     }
 }
 

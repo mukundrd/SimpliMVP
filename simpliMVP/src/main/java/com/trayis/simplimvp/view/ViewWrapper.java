@@ -1,17 +1,20 @@
 package com.trayis.simplimvp.view;
 
+import com.trayis.simplimvp.utils.Logging;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
-import java.security.acl.NotOwnerException;
 import java.util.HashMap;
 
 /**
  * Created by Mukund Desai on 2/17/17.
  */
 public class ViewWrapper<V extends SimpliView> implements InvocationHandler {
+
+    private final String TAG;
 
     private V mView;
 
@@ -31,18 +34,25 @@ public class ViewWrapper<V extends SimpliView> implements InvocationHandler {
 
     public ViewWrapper(V view) {
         this.mView = view;
+        this.TAG = view.getClass().getSimpleName();
     }
 
     public V prepareViewDelegator() {
-        Type[] types = ((ParameterizedType) mView.getClass().getGenericSuperclass()).getActualTypeArguments();
-        Class<?> viewClass = null;
-        for (Type type : types) {
-            if (SimpliView.class.isAssignableFrom((Class<?>) type)) {
-                viewClass = (Class<?>) type;
-                break;
+        try {
+            Type[] types = ((ParameterizedType) mView.getClass().getGenericSuperclass()).getActualTypeArguments();
+            Class<?> viewClass = null;
+            for (Type type : types) {
+                if (SimpliView.class.isAssignableFrom((Class<?>) type)) {
+                    viewClass = (Class<?>) type;
+                    break;
+                }
             }
+            return (V) Proxy.newProxyInstance(viewClass.getClassLoader(), new Class<?>[]{viewClass}, this);
+        } catch (Exception e) {
+            Logging.e(TAG, e.getMessage(), e);
         }
-        return (V) Proxy.newProxyInstance(viewClass.getClassLoader(), new Class<?>[]{viewClass}, this);
+
+        return mView;
     }
 
     @Override

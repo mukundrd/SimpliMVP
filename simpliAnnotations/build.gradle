@@ -1,51 +1,22 @@
-apply plugin: 'com.android.library'
+apply plugin: 'java'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
-
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-}
-
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$androidLib"
-
-    // ReactiveX
-    implementation "io.reactivex:rxjava:1.2.1"
-
-    testImplementation 'junit:junit:4.12'
-
 }
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 
 group = 'com.trayis'    // Maven Group ID for the artifact
-version = '1.0.3'       // This is the library version used when deploying the artifact
+version = '0.1.4'       // This is the library version used when deploying the artifact
 
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
         pom.project {
-            name 'SimpliMVP'
-            description = 'SimpliMVP is our effort to create a simple and understandable MVP Library.\n' +
-                    'Idea here is to create a basic code structure that can be further extend based on the project needs.'
+            name 'SimpliAnnotations'
+            description = 'SimpliAnnotations is a support library to create a simple and understandable MVP Library dependencies.'
             url siteUrl
             inceptionYear '2017'
 
@@ -74,12 +45,8 @@ install {
     }
 }
 task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
+    from sourceSets.main.java.srcDirs
     classifier = 'sources'
-}
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    //classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
@@ -100,7 +67,7 @@ bintray {
         configurations = ['archives']
         pkg {
             repo = "android_lib"
-            name = "SimpliMVP"
+            name = "SimpliAnnotations"
             websiteUrl = siteUrl
             vcsUrl = gitUrl
             licenses = ["Apache-2.0"]
