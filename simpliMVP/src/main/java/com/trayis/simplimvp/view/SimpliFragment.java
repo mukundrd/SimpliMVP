@@ -26,9 +26,11 @@ import android.view.ViewGroup;
 import com.trayis.simplimvp.presenter.SimpliPresenter;
 import com.trayis.simplimvp.utils.Logging;
 import com.trayis.simplimvp.utils.SimpliDelegator;
+import com.trayis.simplimvp.utils.SimpliProviderUtil;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.InvalidPropertiesFormatException;
 
 /**
  * Created by Mukund Desai on 2/17/17.
@@ -49,21 +51,10 @@ public abstract class SimpliFragment<P extends SimpliPresenter<V>, V extends Sim
 
     public P getPresenter() {
         if (mPresenter == null) {
-            Type type = getClass().getGenericSuperclass();
-            ParameterizedType paramType = (ParameterizedType) type;
-            Type[] arguments = paramType.getActualTypeArguments();
-            for (Type t : arguments) {
-                if (SimpliPresenter.class.isAssignableFrom((Class<?>) t)) {
-                    Class<P> pClass = (Class<P>) t;
-                    try {
-                        mPresenter = pClass.newInstance();
-                    } catch (java.lang.InstantiationException e) {
-                        Logging.e(TAG, e.getMessage(), e);
-                    } catch (IllegalAccessException e) {
-                        Logging.e(TAG, e.getMessage(), e);
-                    }
-                    break;
-                }
+            try {
+                mPresenter = (P) SimpliProviderUtil.getInstance().getProvider().getPresenter(this);
+            } catch (InvalidPropertiesFormatException e) {
+                Logging.e(TAG, e.getMessage(), e);
             }
         }
         return mPresenter;
