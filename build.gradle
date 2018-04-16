@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        androidLib = '26.0.0-beta2'
+        androidLib = '27.1.1'
 
         siteUrl = 'https://gitlab.com/Trayis/SimpliMVP'      // Homepage URL of the library
         gitUrl = 'https://gitlab.com/Trayis/SimpliMVP.git'   // Git repository URL
@@ -12,9 +12,10 @@ buildscript {
         mavenCentral()
         maven { url 'https://maven.google.com' }
         maven { url 'http://dl.bintray.com/my-bintray-id/MyStuff' }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
     }
