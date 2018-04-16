@@ -39,15 +39,19 @@ dependencies {
     // ReactiveX
     implementation "io.reactivex:rxjava:1.2.1"
 
-    api "com.trayis:simpliMVP:1.0.2"
-    implementation "com.trayis:simpliMVPAnnotationProcessor:0.1.6"
-    annotationProcessor "com.trayis:simpliMVPAnnotationProcessor:0.1.6"
+    //api "com.trayis:simpliMVP:1.0.5"
+    //implementation "com.trayis:simpliMVPAnnotationProcessor:0.1.7"
+    //annotationProcessor "com.trayis:simpliMVPAnnotationProcessor:0.1.7"
 
-    //implementation project(":simpliMVPAnnotationProcessor")
-    //annotationProcessor project(":simpliMVPAnnotationProcessor")
+    implementation project(":simpliMVP")
+    implementation project(":simpliMVPAnnotationProcessor")
+    annotationProcessor project(":simpliMVPAnnotationProcessor")
 
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:2.2.2"
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:4.12"
+    // testAnnotationProcessor "com.trayis:simpliMVPAnnotationProcessor:0.1.7"
+    testAnnotationProcessor project(":simpliMVPAnnotationProcessor")
+
 }
 
