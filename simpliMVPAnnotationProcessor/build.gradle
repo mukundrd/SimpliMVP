@@ -5,11 +5,13 @@ apply plugin: 'com.jfrog.bintray'
 dependencies {
 }
 
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
+allprojects {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 group = 'com.trayis'    // Maven Group ID for the artifact
-version = '0.1.6'       // This is the library version used when deploying the artifact
+version = '0.1.7'       // This is the library version used when deploying the artifact
 
 install {
     repositories.mavenInstaller {
@@ -44,14 +46,17 @@ install {
         }
     }
 }
+
 task sourcesJar(type: Jar) {
     from sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
+
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
+
 artifacts {
     archives javadocJar
     archives sourcesJar
