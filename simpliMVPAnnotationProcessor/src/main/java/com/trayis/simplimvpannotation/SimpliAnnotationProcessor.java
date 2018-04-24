@@ -56,7 +56,7 @@ public class SimpliAnnotationProcessor extends AbstractProcessor {
 
         classBuilder.append("\n\n\tprivate SimpliMVPProvider() {}");
 
-        classBuilder.append("\n\n\t@Override\n\tpublic P getPresenter(V view) throws InvalidPropertiesFormatException {");
+        classBuilder.append("\n\n\t@Override\n\t@SuppressWarnings(\"unchecked\")\n\tpublic P getPresenter(V view) throws InvalidPropertiesFormatException {");
 
         for (Element element : roundEnv.getElementsAnnotatedWith(SimpliViewComponent.class)) {
 

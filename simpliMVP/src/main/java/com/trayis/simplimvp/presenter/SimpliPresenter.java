@@ -20,7 +20,7 @@ import android.os.Bundle;
 
 import com.trayis.simplimvp.view.SimpliView;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
 
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.DESTROYED;
 import static com.trayis.simplimvp.presenter.SimpliPresenter.State.INITIALIZED;
@@ -36,7 +36,7 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     private boolean mInitialized;
 
-    protected CompositeSubscription mSubscription;
+    protected CompositeDisposable mDisposable;
 
     protected Context mContext;
 
@@ -49,7 +49,7 @@ public abstract class SimpliPresenter<V extends SimpliView> {
     }
 
     public void markInitialized() {
-        mSubscription = new CompositeSubscription();
+        mDisposable = new CompositeDisposable();
         mInitialized = true;
     }
 
@@ -124,8 +124,8 @@ public abstract class SimpliPresenter<V extends SimpliView> {
 
     public void onDestroy() {
         moveToState(DESTROYED);
-        if (!mSubscription.isUnsubscribed()) {
-            mSubscription.unsubscribe();
+        if (!mDisposable.isDisposed()) {
+            mDisposable.dispose();
         }
     }
 
