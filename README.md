@@ -43,4 +43,4 @@ allprojects {
 }
 ```
 
-you can check for the availability of latest version of SimpliMVP here https://jcenter.bintray.com/com/trayis/simpliMVP/
+You can check for the availability of latest version of SimpliMVP here https://jcenter.bintray.com/com/trayis/simpliMVP/
