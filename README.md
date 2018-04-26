@@ -31,7 +31,7 @@ dependencies {
 ```
 
 ### About latest version
-The library is available through jcenter, make sure your application has jcenter among listed repositories:
+The library is available through bintray jcenter, make sure your application has jcenter among listed repositories:
 
 ```
 allprojects {
@@ -42,3 +42,5 @@ allprojects {
     }
 }
 ```
+
+you can check for the availability of latest version of SimpliMVP here https://jcenter.bintray.com/com/trayis/simpliMVP/
