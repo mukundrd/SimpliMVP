@@ -8,7 +8,11 @@ My simple answer to this question is, thou there are lots of good material avail
 Therefore, I thought of creating foundation of MVP, that can be further extend.
 
 # How to use?
-To use the SimpliMVP architecture, your Activity/Fragment must extend SimpliActivity/SimpliFragment respectively along with mentioning the class as ```@SimpliViewComponent``` with the help of annotation. The dependency injection and instantiation of your presenter will be taken care by SimpliMVP library with the help of ```simpliMVPAnnotationProcessor``` annotation processor.
+1. To use the SimpliMVP architecture, your Activity/Fragment must extend SimpliActivity/SimpliFragment respectively along with mentioning the class as ```@SimpliViewComponent``` with the help of annotation.
+
+2. Presenters must extend ```SimpliPresenter``` and view contract interfaces must extend ```SimpliView```.
+
+3. The dependency injection and instantiation of your presenter will be taken care by SimpliMVP library with the help of ```simpliMVPAnnotationProcessor``` annotation processor.
 
 # How to add dependencies?
 Copy the dependency as
