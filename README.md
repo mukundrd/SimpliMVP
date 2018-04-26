@@ -10,8 +10,14 @@ Therefore, I thought of creating foundation of MVP, that can be further extend.
 Copy the dependency as
 
 ```
+dependencies {
+    ...
+    
     implementation 'com.trayis:simpliMVP:1.1.0'
 
     implementation "com.trayis:simpliMVPAnnotationProcessor:0.2.1"
     annotationProcessor "com.trayis:simpliMVPAnnotationProcessor:0.2.1"
+    
+    ...
+}
 ```
