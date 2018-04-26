@@ -8,7 +8,7 @@ My simple answer to this question is, thou there are lots of good material avail
 Therefore, I thought of creating foundation of MVP, that can be further extend. *"BTW, SimpliMVP is lifecycle aware!!"*
 
 ### How to use?
-1. To use the SimpliMVP architecture, your Activity/Fragment must extend ```SimpliActivity``` and ```SimpliFragment``` respectively along with mentioning the class as ```@SimpliViewComponent``` with the help of annotation.
+1. To use the SimpliMVP architecture, your Activity/Fragment must extend ```SimpliActivity``` and ```SimpliFragment``` respectively along with mentioning the class as ```@SimpliViewComponent``` which will make the activity/fragment class as MVP eligible.
 
 2. Presenters must extend ```SimpliPresenter``` and view contract interfaces must extend ```SimpliView```.
 
