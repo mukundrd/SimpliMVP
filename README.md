@@ -23,9 +23,22 @@ dependencies {
     
     implementation 'com.trayis:simpliMVP:1.1.0'
 
-    implementation "com.trayis:simpliMVPAnnotationProcessor:0.2.1"
-    annotationProcessor "com.trayis:simpliMVPAnnotationProcessor:0.2.1"
+    implementation 'com.trayis:simpliMVPAnnotationProcessor:0.2.1'
+    annotationProcessor 'com.trayis:simpliMVPAnnotationProcessor:0.2.1'
     
     ...
+}
+```
+
+### About latest version
+The library is available through jcenter, make sure your application has jcenter among listed repositories:
+
+```
+allprojects {
+    repositories {
+        jcenter()
+        ...
+        google()
+    }
 }
 ```
